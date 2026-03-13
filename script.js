@@ -1,0 +1,160 @@
+const canvas = document.getElementById("gameBoard")
+const ctx = canvas.getContext("2d")
+
+const tuboUp = new Image();
+tuboUp.src = "./media/tuboUp.png"
+const tuboDown = new Image();
+tuboDown.src = "./media/tuboDown.png"
+
+const imgTubo = {
+    up: tuboUp,
+    down: tuboDown
+}
+
+let frames = []
+// cargar frames
+for(let i = 1; i <= 4; i++){;
+    let img = new Image();
+    img.src = `./media/NyanCatFrames/frame_${i}_delay-0.07s.png`;
+    frames.push(img);
+};
+
+let currentFrame = 0
+
+let cat = {
+    x : 100,
+    y : 100,
+    angle : 0,
+    img : frames[0],
+    width : 100,
+    height : 60 
+}
+
+const tuboWidth = 80;
+const tuboHeight = 300;
+
+let tubosInferiores = [
+    {
+        x : 700,
+        y : 400,
+        img : imgTubo.down,
+        width : 80,
+        height : 300 
+    },
+    {
+        x : 700,
+        y : 400,
+        img : imgTubo.down,
+        width : 80,
+        height : 300 
+    },
+    {
+        x : 700,
+        y : 400,
+        img : imgTubo.down,
+        width : 80,
+        height : 300 
+    },
+    {
+        x : 700,
+        y : 400,
+        img : imgTubo.down,
+        width : 80,
+        height : 300 
+    }
+]
+let posicion = 600 
+tubosInferiores = tubosInferiores.map(t => {
+    posicion += 200
+    t.y = Math.random() * (500 - 300) + 300
+    t.x = posicion
+    return {...t}
+})
+const gap = 150;
+
+
+let tubo = {
+    x : 700,
+    y : 400,
+    img : imgTubo.down,
+    width : 80,
+    height : 300 
+}
+
+function animate(){
+    ctx.clearRect(0,0,canvas.width,canvas.height)
+
+    const limitHeight = 490;
+    const rectAngle = 1.5708;
+
+    cat.y = cat.y + 20 >= limitHeight ? limitHeight : cat.y+=20
+    cat.angle = cat.angle + 0.08 >= rectAngle ? rectAngle : cat.angle+=0.08
+
+    cat.img = frames[currentFrame]
+    draw(cat);
+
+    currentFrame++;
+    if(currentFrame >= frames.length){
+        currentFrame = 0;
+    }
+    
+    tubosInferiores.forEach(t => {
+        t.x-=10
+        if (t.x < -80) {
+            t.x = 700
+            t.y = Math.random() * (500 - 300) + 300
+        }
+        draw(t)
+        draw({
+            x : t.x,
+            y : t.y-t.height-gap,
+            img : imgTubo.up,
+            width : 80,
+            height : 300 
+        })
+    })
+
+    let tuboCercano = tubosInferiores.find(t => t.x + t.width > cat.x)                                  
+    if (collision(tuboCercano,cat)) console.log("aikdmncosadincos")
+
+    setTimeout(() => {
+        requestAnimationFrame(animate)
+    }, 100);
+}
+
+animate();
+
+document.addEventListener("click", ()=>{
+    cat.y -= 100;
+    cat.angle = -0.4;
+})
+
+function draw(obj){
+    ctx.save()
+
+    // mover origen al centro del objeto
+    ctx.translate(obj.x + obj.width/2, obj.y + obj.height/2)
+
+    // rotar si tiene ángulo
+    ctx.rotate(obj.angle ? obj.angle : 0)
+
+    // dibujar desde el centro
+    ctx.drawImage(
+        obj.img,
+        -obj.width/2,
+        -obj.height/2,
+        obj.width,
+        obj.height
+    )
+
+    ctx.restore()
+}
+
+function collision(a, b){
+    return (
+        a.x < b.x + b.width &&
+        a.x + a.width > b.x &&
+        a.y < b.y + b.height &&
+        a.y + a.height > b.y
+    )
+}
