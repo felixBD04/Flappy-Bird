@@ -114,15 +114,20 @@ function animate(){
         })
     })
 
-    let tuboCercano = tubosInferiores.find(t => t.x + t.width > cat.x)                                  
-    if (collision(tuboCercano,cat)) console.log("aikdmncosadincos")
+    const tuboCercano = tubosInferiores
+        .filter(t => t.x + t.width > cat.x)
+        .sort((a, b) => a.x - b.x)[0]
+
+    if (tuboCercano && collision(tuboCercano, cat)) {
+        console.log("¡Colisión detectada!")
+    }
 
     setTimeout(() => {
         requestAnimationFrame(animate)
     }, 100);
 }
 
-animate();
+//animate();
 
 document.addEventListener("click", ()=>{
     cat.y -= 100;
