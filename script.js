@@ -54,24 +54,21 @@ let tubosInferiores = [
         img : imgTubo.down,
         width : 80,
         height : 300 
-    },
-    {
-        x : 700,
-        y : 400,
-        img : imgTubo.down,
-        width : 80,
-        height : 300 
     }
 ]
 let posicion = 600 
 tubosInferiores = tubosInferiores.map(t => {
-    posicion += 200
+    posicion += 300
     t.y = Math.random() * (500 - 300) + 300
     t.x = posicion
     return {...t}
 })
-const gap = 150;
 
+const gap = 150;
+const gravity = 5;
+let velocity = 0
+const tuboSpeed = 10
+const jumpForce = -30
 
 let tubo = {
     x : 700,
@@ -81,14 +78,16 @@ let tubo = {
     height : 300 
 }
 
+const limitHeight = 530;
+const rectAngle = 1.5708;
 function animate(){
+    velocity += gravity
     ctx.clearRect(0,0,canvas.width,canvas.height)
 
-    const limitHeight = 490;
-    const rectAngle = 1.5708;
+    
 
-    cat.y = cat.y + 20 >= limitHeight ? limitHeight : cat.y+=20
-    cat.angle = cat.angle + 0.08 >= rectAngle ? rectAngle : cat.angle+=0.08
+    cat.y = cat.y + velocity >= limitHeight ? limitHeight : cat.y += velocity
+    cat.angle = cat.angle + 0.08 >= rectAngle ? rectAngle : cat.angle += 0.08
 
     cat.img = frames[currentFrame]
     draw(cat);
@@ -99,9 +98,10 @@ function animate(){
     }
     
     tubosInferiores.forEach(t => {
-        t.x-=10
-        if (t.x < -80) {
-            t.x = 700
+        t.x -= tuboSpeed
+        if (t.x === -80) {
+            let maxX = Math.max(...tubosInferiores.map(t => t.x))
+            t.x = maxX + 300
             t.y = Math.random() * (500 - 300) + 300
         }
         draw(t)
@@ -127,10 +127,12 @@ function animate(){
     }, 100);
 }
 
+//maneajer los conceptos de velocity gravedad y distnacia para el movimiento del pajaro
 //animate();
 
 document.addEventListener("click", ()=>{
-    cat.y -= 100;
+    velocity = jumpForce
+    cat.y -= velocity;
     cat.angle = -0.4;
 })
 
