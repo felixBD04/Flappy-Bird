@@ -56,11 +56,10 @@ let tubosInferiores = [
         height : 300 
     }
 ]
-let posicion = 600 
-tubosInferiores = tubosInferiores.map(t => {
-    posicion += 300
+const separacion = 300
+tubosInferiores = tubosInferiores.map((t,index) => {
     t.y = Math.random() * (500 - 300) + 300
-    t.x = posicion
+    t.x += separacion * index
     return {...t}
 })
 
@@ -114,11 +113,42 @@ function animate(){
         })
     })
 
-    const tuboCercano = tubosInferiores
+    /* const tuboCercano = {
+        down : tubosInferiores
+                .filter(t => t.x + t.width > cat.x)
+                .sort((a, b) => a.x - b.x)[0],
+        up : {
+            x : tuboCercano.down.x,
+            y : tuboCercano.down.y - t.height - gap,
+            width : 80,
+            height : 300 
+        }
+    }
+    console.log(tuboCercano) */
+
+    const tuboCercanoInferior = tubosInferiores
         .filter(t => t.x + t.width > cat.x)
         .sort((a, b) => a.x - b.x)[0]
+    /* const tuboCercanoSupeior = {
+            x : t.x,
+            y : t.y-t.height-gap,
+            img : imgTubo.up,
+            width : 80,
+            height : 300 
+        } */
 
-    if (tuboCercano && collision(tuboCercano, cat)) {
+    if (
+        (tuboCercanoInferior && collision(tuboCercanoInferior, cat)) ||
+        collision(
+            {
+                x:tuboCercanoInferior.x,
+                y:tuboCercanoInferior.y - tuboCercanoInferior.height - gap,
+                width:tuboCercanoInferior.width,
+                height:tuboCercanoInferior.height
+            },
+            cat
+        )
+    ) {
         console.log("¡Colisión detectada!")
     }
 
@@ -128,7 +158,7 @@ function animate(){
 }
 
 //maneajer los conceptos de velocity gravedad y distnacia para el movimiento del pajaro
-//animate();
+animate();
 
 document.addEventListener("click", ()=>{
     velocity = jumpForce
