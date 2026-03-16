@@ -1,3 +1,72 @@
+*{
+    margin: 0;
+    padding: 0;
+
+    font-family: "Press Start 2P", system-ui;
+}
+
+/*HOME SCREEN*/
+
+.homeScreen{
+    z-index: 100;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color: rgba(0, 0, 0, 0.685);
+}
+
+.homeScreen .characterSelector{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.homeScreen .characterSelector #character{
+    width: 200px;
+    padding: 20px;
+}
+
+/*CANVAS*/
+
 canvas{
     background-color: aquamarine;
+}
+
+/*MENU*/
+
+.menu{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*--------- Utility classes ---------*/
+
+.hidden{
+    display: none;
+}
+
+.fixedPosition{
+    position: fixed;
+}
+
+.fullScreen{
+    width: 100vw;
+    height: 100vh;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    padding: 20px;
+    border: 5px solid gold;
+    background-color: rgb(86, 184, 40);
 }

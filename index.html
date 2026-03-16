@@ -4,12 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flappy Bird</title>
+    <!--FONT-->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <!--ESTILOS-->
     <link rel="stylesheet" href="./style.css">
+    <!--ICONOS-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
+    
+    <div id="homeScreen" class="homeScreen fixedPosition fullScreen">
+        <div class="container">
+            <h1>Flappy Nyan Cat</h1>
+            <div class="characterSelector">
+                <button id="prevCharater"><i class="fa-solid fa-angle-left"></i></button>
+                <img id="character" src="./media/characters/Nyan-cat.webp" alt="">
+                <button id="nextCharater"><i class="fa-solid fa-angle-right"></i></button>
+            </div>
+            <button id="start">START</button>
+        </div>
+    </div>
+    <div id="menu" class="menu hidden  fixedPosition fullScreen">
+        <div class="container">
+
+        </div>
+    </div>
     <canvas id="gameBoard" width="800" height="600"></canvas>
-    <img src="./media/tuboDown.png" alt="gato">
 </body>
 <script src="./script.js"></script>
 </html>
