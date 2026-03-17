@@ -6,6 +6,7 @@
     <title>Flappy Bird</title>
     <!--FONT-->
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
     <!--ESTILOS-->
     <link rel="stylesheet" href="./style.css">
     <!--ICONOS-->
@@ -29,13 +30,13 @@
     <div id="menu" class="menu hidden fixedPosition fullScreen">
         <div class="container">
             <div class="opts">
-                <button>setings</button>
-                <button>character</button>
-                <button>mode</button>
+                <button class="btn"><i class="fa-solid fa-gear"></i></button>
+                <button class="btn"><i class="fa-solid fa-user-pen"></i></button>
+                <button class="btn"><i class="fa-solid fa-moon"></i></button>
             </div>
             <h2 id="score"></h2>
             <p id="bestScore"></p>
-            <button id="playAgain">PLAY AGAIN</button>
+            <button class="btn" id="playAgain"><i class="fa-solid fa-play"></i></button>
         </div>
     </div>
     <canvas id="gameBoard" width="800" height="600"></canvas>

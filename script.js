@@ -102,7 +102,7 @@ const imgContainer = document.getElementById("imgContainer")
 
 function animarImg(img,direccion){
     img.style.animation = "none";
-    img.offsetHeight; // fuerza reflow
+    img.offsetHeight;
     img.style.animation = direccion + " 0.8s cubic-bezier(.68,-0.55,.27,1.55) forwards"
 }
 
