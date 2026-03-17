@@ -5,6 +5,21 @@ const homeScreen = document.getElementById("homeScreen")
 const canvas = document.getElementById("gameBoard");
 const ctx = canvas.getContext("2d");
 
+//const BASE_WIDTH = 800;
+//const BASE_HEIGHT = 600;
+//
+//canvas.width = BASE_WIDTH;
+//canvas.height = BASE_HEIGHT;
+//
+//function resizeCanvas() {
+//    const scale = window.innerHeight / BASE_HEIGHT;
+//    canvas.style.transform = `scale(${20})`;
+//  }
+//  
+//window.addEventListener("resize", resizeCanvas);
+//  
+//resizeCanvas();
+
 //VARIVALES PARA MANTENER EL SISTEMA DE PUNTOS
 let idPasado;
 let idTuboReciente ;

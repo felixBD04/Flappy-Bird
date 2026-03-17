@@ -15,9 +15,13 @@
 *{
     margin: 0;
     padding: 0;
-
-    font-family: 'Silkscreen', sans-serif;
 }
+
+html, body {
+    font-family: 'Silkscreen', sans-serif;
+    overflow: hidden; /* evita scroll */
+  }
+  
 
 body{
     background-color: var(--bgBody);
@@ -64,7 +68,8 @@ body{
 .homeScreen #start{
     width: 150px;
     height: 50px;
-    font-size: 20px;
+    font-size: 30px;
+    padding-bottom: 50px;
 }
 
 .homeScreen .changeBtn{
@@ -112,9 +117,12 @@ canvas{
     background-repeat: no-repeat;
     background-position: center;
 
-    width: 100vw;
-    height: fit-content;
-
+    display: block; /* elimina espacio raro */
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    transform-origin: top left;
 }
 
 /*MENU*/
