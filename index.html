@@ -17,16 +17,25 @@
         <div class="container">
             <h1>Flappy Nyan Cat</h1>
             <div class="characterSelector">
-                <button id="prevCharater"><i class="fa-solid fa-angle-left"></i></button>
-                <img id="character" src="./media/characters/Nyan-cat.webp" alt="">
-                <button id="nextCharater"><i class="fa-solid fa-angle-right"></i></button>
+                <button class="changeBtn" id="prevCharater"><i class="fa-solid fa-angle-left"></i></button>
+                <div id="imgContainer" class="imgCharacterConteiner">
+                    <img id="character" src="./media/characters/Nyan-cat.webp" alt="">
+                </div>
+                <button class="changeBtn" id="nextCharater"><i class="fa-solid fa-angle-right"></i></button>
             </div>
-            <button id="start">START</button>
+            <button class="btn" id="start">START</button>
         </div>
     </div>
-    <div id="menu" class="menu hidden  fixedPosition fullScreen">
+    <div id="menu" class="menu hidden fixedPosition fullScreen">
         <div class="container">
-
+            <div class="opts">
+                <button>setings</button>
+                <button>character</button>
+                <button>mode</button>
+            </div>
+            <h2 id="score"></h2>
+            <p id="bestScore"></p>
+            <button id="playAgain">PLAY AGAIN</button>
         </div>
     </div>
     <canvas id="gameBoard" width="800" height="600"></canvas>

@@ -6,10 +6,10 @@ const canvas = document.getElementById("gameBoard");
 const ctx = canvas.getContext("2d");
 
 //VARIVALES PARA MANTENER EL SISTEMA DE PUNTOS
-let idPasado = 0;
-let idTuboReciente = 0;
+let idPasado;
+let idTuboReciente ;
 
-let score = 0
+let score;
 
 //FISICAS DEL JUEGO
 const gap = 200;
@@ -38,7 +38,7 @@ const catWidth = 80;
 const catHeigth = 60;
 
 //POSICION DEL GATO
-let cat = {x : 100, y : 100, angle : 0}
+let cat;
 
 //FRAMES DEL GATO
 let frames = [];
@@ -66,42 +66,82 @@ const tuboWidth = 80;
 const tuboHeight = 300;
 
 //POSICION DE LOS TUBOS
-let tubosInferiores = [
-    {x : 700, y : 400},
-    {x : 700, y : 400},
-    {x : 700, y : 400}
-];
+let tubosInferiores;
 
 //REUBICACION DE LOS TUBOS
 const separacion = 300;
-tubosInferiores = tubosInferiores.map((t,index) => {
-    t.y = Math.random() * (500 - 300) + 300;
-    t.x += separacion * index;
-    return {...t};
-})
+
+
+function inicializarVariables(){
+    idPasado = 0;
+    idTuboReciente = 0;
+
+    score = 0;
+
+    cat = {x : 100, y : 100, angle : 0};
+
+    tubosInferiores = [
+        {x : 700, y : 400},
+        {x : 700, y : 400},
+        {x : 700, y : 400}
+    ];
+
+    tubosInferiores = tubosInferiores.map((t,index) => {
+        t.y = Math.random() * (500 - 300) + 300;
+        t.x += separacion * index;
+        return {...t};
+    })
+}
 
 //--------------------JUEGO--------------------
 
 //CAMBIAR DE PERSONAJE
-let character = 0; 
+let character = 0;
+const imgContainer = document.getElementById("imgContainer")
+
+
+function animarImg(img,direccion){
+    img.style.animation = "none";
+    img.offsetHeight; // fuerza reflow
+    img.style.animation = direccion + " 0.8s cubic-bezier(.68,-0.55,.27,1.55) forwards"
+}
+
+const oldImg = new Image
+oldImg.classList.add("oldImg")
+
 function cambiar(event){
-    if(event.target.id === "prevCharater") {
+    
+    oldImg.src = `./media/characters/${characters[character].name}`
+    imgContainer.appendChild(oldImg)
+    
+    if(event.currentTarget.id === "prevCharater") {
+        animarImg(oldImg,"desaparecerIzquierda")
+        animarImg(characterIMG,"aparecerDerecha")
         character -= 1
         if (character < 0){
             character = characters.length-1
         }
     }else {
+        animarImg(oldImg,"desaparecerDerecha")
+        animarImg(characterIMG,"aparecerIzquierda")
         character += 1
         if (character > characters.length-1){
             character = 0
         }
     }
+
     characterIMG.src = `./media/characters/${characters[character].name}`
+    
+    oldImg.addEventListener("animationend", () => {
+        imgContainer.removeChild(oldImg);
+    });
+    
 }
 
 //INICO DEL JUEGO
 
 function inicio(){
+    inicializarVariables();
     homeScreen.classList.add("hidden")
 
     //CARGAMOS LO FRAMES
@@ -110,6 +150,7 @@ function inicio(){
         img.src = `./media/characters/${characters[character].folderName}/frame_${i}.png`;
         frames.push(img);
     };
+
     animate();
 }
 
@@ -188,6 +229,8 @@ function animate(){
         (collision(tuboInferior, catBox) || collision(tuboSuperior, catBox))
     ) {
         console.log("¡Colisión detectada!")
+        menu.classList.remove("hidden")
+        document.getElementById("score").textContent = score;
         console.log(score)
     }else{
         setTimeout(() => {
@@ -244,5 +287,15 @@ canvas.addEventListener("click", ()=>{
     cat.y -= velocity;
     cat.angle = -0.4;
 })
+
+//VOLVER A JUGAR
+function volverJugar(){
+    inicializarVariables();
+    menu.classList.add("hidden");
+    animate();
+}
+
+document.getElementById("playAgain")
+    .addEventListener("click", volverJugar)
 
 
