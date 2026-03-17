@@ -28,6 +28,11 @@ const characters = [
         name : "bird.webp",
         folderName : "BirdFrames",
         frames : 6
+    },
+    {
+        name : "CupHead.gif",
+        folderName : "CupHeadFrames",
+        frames : 10
     }
 ];
 
