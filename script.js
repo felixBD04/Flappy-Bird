@@ -31,7 +31,7 @@ const gap = 200;
 const gravity = 5;
 const tuboSpeed = 10;
 const jumpForce = -30;
-let velocity = 0;
+let velocity;
 
 const characters = [
     {
@@ -93,6 +93,7 @@ const separacion = 300;
 
 
 function inicializarVariables(){
+    velocity = 0;
     idPasado = 0;
     idTuboReciente = 0;
 
@@ -302,7 +303,7 @@ document.getElementById("start")
     .addEventListener("click",inicio)
 
 //SALTO DEL GATO
-canvas.addEventListener("click", ()=>{
+canvas.addEventListener("mousedown", ()=>{
     velocity = jumpForce
     cat.y -= velocity;
     cat.angle = -0.4;
